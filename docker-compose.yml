@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: 123as321
+      MYSQL_DATABASE: atividade4
+    volumes:
+      - ./db/scripts.sql:/docker-entrypoint-initdb.d/scripts.sql
+    networks:
+      - my-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-container
+    ports:
+      - "3000:3000"
+    networks:
+      - my-network
+    depends_on:
+      - db
+
+networks:
+  my-network:
+    driver: bridge

@@ -1,14 +1,20 @@
+# Use uma imagem base do Node.js
 FROM node:16-slim
 
-# Define o diretório de trabalho dentro do contêiner
+# Crie o diretório de trabalho
 WORKDIR /home/node/app
 
-# Copia os arquivos do projeto para dentro do contêiner
-COPY package.json ./
-COPY src ./src
+# Copie os arquivos package*.json
+COPY package*.json ./
 
-# Instala as dependências da aplicação
+# Instale as dependências
 RUN npm install
 
-# Define o comando para iniciar a aplicação
-CMD npm start
+# Copie o restante do código da aplicação
+COPY src ./src
+
+# Exponha a porta da aplicação
+EXPOSE 4040
+
+# Comando para iniciar a aplicação
+CMD ["node", "src/index.js"]

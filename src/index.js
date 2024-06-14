@@ -1,7 +1,7 @@
 const express = require('express');
 const connectToDatabase = require('./connection');
 
-const port = 3000;
+const port = 4040;
 const app = express();
 
 app.get('/liveness', (req, res) => {
